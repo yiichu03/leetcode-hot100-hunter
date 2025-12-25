@@ -1,8 +1,10 @@
 import streamlit as st
 
 from utils.data_manager import (
+    format_commit_message,
     get_random_question,
     load_questions,
+    save_notes,
     save_solution,
     update_status,
 )
@@ -21,6 +23,22 @@ with st.sidebar:
     st.subheader("进度")
     st.progress(progress)
     st.caption(f"已完成 {solved}/{total}")
+
+    solved_questions = [q for q in questions if q.get("status") == "solved"]
+    solved_titles = [
+        f"{q.get('id')} - {q.get('title')}" for q in solved_questions
+    ]
+    selected_review = st.selectbox(
+        "复习已完成题目",
+        options=["(选择题目)"] + solved_titles,
+        index=0,
+    )
+
+    if selected_review != "(选择题目)":
+        selected_index = solved_titles.index(selected_review)
+        st.session_state.current_question = solved_questions[selected_index]
+        st.session_state.code_input = ""
+        st.session_state.notes_input = ""
 
     if st.button("⬆️ Git Push", use_container_width=True):
         push_result = git_push()
@@ -58,6 +76,7 @@ if question:
 
     st.text_area("代码", height=240, key="code_input")
     st.text_area("笔记", height=140, key="notes_input")
+    mark_best = st.checkbox("标记为 best 解法（覆盖同题最佳）", value=False)
 
     if st.button("提交 ✅"):
         updated = update_status(
@@ -70,11 +89,24 @@ if question:
         else:
             solution_path = save_solution(
                 question_id=question.get("id"),
+                title=question.get("title", ""),
                 code=st.session_state.code_input,
+                is_best=mark_best,
             )
+            notes_path = save_notes(
+                question_id=question.get("id"),
+                title=question.get("title", ""),
+                notes=st.session_state.notes_input,
+            )
+            commit_paths = ["data/problems.json", str(solution_path)]
+            if notes_path is not None:
+                commit_paths.append(str(notes_path))
             commit_result = git_add_commit(
-                paths=["data/problems.json", str(solution_path)],
-                message=f"Solve {question.get('id')} {question.get('title')}",
+                paths=commit_paths,
+                message=format_commit_message(
+                    question_id=question.get("id"),
+                    title=question.get("title", ""),
+                ),
             )
             if commit_result.returncode != 0:
                 st.warning(commit_result.stderr.strip() or "Git commit 失败。")

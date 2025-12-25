@@ -1,10 +1,14 @@
 import json
 import random
+import re
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "problems.json"
 SOLUTIONS_DIR = Path(__file__).resolve().parents[1] / "solutions"
+BEST_DIR = SOLUTIONS_DIR / "best"
+NOTES_DIR = Path(__file__).resolve().parents[1] / "notes"
 
 
 def load_questions() -> List[Dict[str, Any]]:
@@ -25,10 +29,10 @@ def save_questions(questions: List[Dict[str, Any]]) -> None:
 
 def get_random_question() -> Optional[Dict[str, Any]]:
     questions = load_questions()
-    unsolved = [q for q in questions if q.get("status") == "unsolved"]
-    if not unsolved:
+    if not questions:
         return None
-    return random.choice(unsolved)
+    weights = [3 if q.get("status") == "unsolved" else 1 for q in questions]
+    return random.choices(questions, weights=weights, k=1)[0]
 
 
 def update_status(question_id: str, code: str, notes: str) -> Optional[Dict[str, Any]]:
@@ -47,9 +51,52 @@ def update_status(question_id: str, code: str, notes: str) -> Optional[Dict[str,
     return updated_question
 
 
-def save_solution(question_id: str, code: str) -> Path:
+def save_solution(question_id: str, title: str, code: str, is_best: bool) -> Path:
     SOLUTIONS_DIR.mkdir(parents=True, exist_ok=True)
-    filename = f"{question_id}_solution.py"
-    path = SOLUTIONS_DIR / filename
+    if is_best:
+        BEST_DIR.mkdir(parents=True, exist_ok=True)
+        filename = f"{_format_id(question_id)}_{_slugify_title(title)}.py"
+        target_dir = BEST_DIR
+    else:
+        filename = (
+            f"{_format_id(question_id)}_{_slugify_title(title)}_{_timestamp()}.py"
+        )
+        target_dir = SOLUTIONS_DIR
+    path = target_dir / filename
     path.write_text(code, encoding="utf-8")
     return path
+
+
+def save_notes(question_id: str, title: str, notes: str) -> Optional[Path]:
+    if not notes.strip():
+        return None
+    NOTES_DIR.mkdir(parents=True, exist_ok=True)
+    filename = f"{_format_id(question_id)}_{_slugify_title(title)}.md"
+    path = NOTES_DIR / filename
+    header = f"[{_timestamp()}]\n"
+    content = header + notes.rstrip() + "\n\n"
+    path.write_text(
+        (path.read_text(encoding="utf-8") if path.exists() else "") + content,
+        encoding="utf-8",
+    )
+    return path
+
+
+def _format_id(question_id: str) -> str:
+    digits = re.sub(r"\D+", "", str(question_id))
+    return digits.zfill(3) if digits else str(question_id)
+
+
+def _slugify_title(title: str) -> str:
+    base = re.sub(r"^\s*\d+\.\s*", "", title.strip())
+    ascii_only = base.encode("ascii", "ignore").decode("ascii")
+    slug = re.sub(r"[^a-zA-Z0-9]+", "_", ascii_only).strip("_").lower()
+    return slug or "solution"
+
+
+def format_commit_message(question_id: str, title: str) -> str:
+    return f"Solve {_format_id(question_id)} {_slugify_title(title)}"
+
+
+def _timestamp() -> str:
+    return datetime.now().strftime("%Y%m%d_%H%M%S")
