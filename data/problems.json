@@ -68,9 +68,9 @@
       "双指针"
     ],
     "pattern_hint": "【双指针-贪心】左右两边向中间靠拢。核心逻辑：总是移动短的那块板（因为移动长板面积一定变小，移动短板才可能变大）。",
-    "status": "solved",
-    "my_code": "try2",
-    "notes": "try2"
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
   },
   {
     "id": "15",
@@ -97,9 +97,9 @@
       "设计"
     ],
     "pattern_hint": "【辅助栈】遇到左括号入栈，遇到右括号检查栈顶是否匹配。最后检查栈是否为空。",
-    "status": "solved",
-    "my_code": "try",
-    "notes": "trytry"
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
   },
   {
     "id": "21",
@@ -140,9 +140,9 @@
       "二分查找"
     ],
     "pattern_hint": "【二分查找变体】将数组一分为二，其中一半一定是有序的。判断 target 是否在有序的那一半里，从而决定舍弃哪一半。",
-    "status": "solved",
-    "my_code": "111",
-    "notes": "222"
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
   },
   {
     "id": "42",
@@ -156,9 +156,9 @@
       "动态规划"
     ],
     "pattern_hint": "【双指针】最高效解法。维护 left_max 和 right_max。哪边低，哪边就可以确定能接多少水（取决于短板），然后向中间移动。",
-    "status": "solved",
-    "my_code": "1",
-    "notes": "2"
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
   },
   {
     "id": "46",
@@ -200,9 +200,9 @@
       "动态规划"
     ],
     "pattern_hint": "【斐波那契数列】dp[i] = dp[i-1] + dp[i-2]。也就是到第 i 阶的方法 = 从 i-1 跳上来 + 从 i-2 跳上来。注意滚动数组优化空间。",
-    "status": "solved",
-    "my_code": "try",
-    "notes": "try"
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
   },
   {
     "id": "121",
