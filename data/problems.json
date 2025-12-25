@@ -69,8 +69,8 @@
     ],
     "pattern_hint": "【双指针-贪心】左右两边向中间靠拢。核心逻辑：总是移动短的那块板（因为移动长板面积一定变小，移动短板才可能变大）。",
     "status": "solved",
-    "my_code": "try",
-    "notes": "try"
+    "my_code": "try2",
+    "notes": "try2"
   },
   {
     "id": "15",
@@ -97,9 +97,9 @@
       "设计"
     ],
     "pattern_hint": "【辅助栈】遇到左括号入栈，遇到右括号检查栈顶是否匹配。最后检查栈是否为空。",
-    "status": "unsolved",
-    "my_code": "",
-    "notes": ""
+    "status": "solved",
+    "my_code": "try",
+    "notes": "trytry"
   },
   {
     "id": "21",
