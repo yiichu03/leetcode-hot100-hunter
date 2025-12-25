@@ -156,9 +156,9 @@
       "动态规划"
     ],
     "pattern_hint": "【双指针】最高效解法。维护 left_max 和 right_max。哪边低，哪边就可以确定能接多少水（取决于短板），然后向中间移动。",
-    "status": "unsolved",
-    "my_code": "",
-    "notes": ""
+    "status": "solved",
+    "my_code": "1",
+    "notes": "2"
   },
   {
     "id": "46",
