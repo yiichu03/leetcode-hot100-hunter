@@ -68,9 +68,9 @@
       "双指针"
     ],
     "pattern_hint": "【双指针-贪心】左右两边向中间靠拢。核心逻辑：总是移动短的那块板（因为移动长板面积一定变小，移动短板才可能变大）。",
-    "status": "unsolved",
-    "my_code": "",
-    "notes": ""
+    "status": "solved",
+    "my_code": "try",
+    "notes": "try"
   },
   {
     "id": "15",
