@@ -1,0 +1,221 @@
+[
+  {
+    "id": "1",
+    "title": "1. 两数之和",
+    "url": "https://leetcode.cn/problems/two-sum/",
+    "difficulty": "Easy",
+    "tags": [
+      "数组",
+      "哈希表"
+    ],
+    "pattern_hint": "【空间换时间】建立一个 HashMap，Key存数字，Value存下标。遍历时检查 (Target - 当前数) 是否在 Map 中。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "2",
+    "title": "2. 两数相加",
+    "url": "https://leetcode.cn/problems/add-two-numbers/",
+    "difficulty": "Medium",
+    "tags": [
+      "递归",
+      "链表",
+      "数学"
+    ],
+    "pattern_hint": "【模拟】模拟人工加法。重点在于处理进位(carry)和两个链表长度不一样的情况。可以用一个 dummy head 简化代码。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "3",
+    "title": "3. 无重复字符的最长子串",
+    "url": "https://leetcode.cn/problems/longest-substring-without-repeating-characters/",
+    "difficulty": "Medium",
+    "tags": [
+      "哈希表",
+      "字符串",
+      "滑动窗口"
+    ],
+    "pattern_hint": "【滑动窗口】右指针主动扩张，遇到重复字符时，左指针被动收缩（跳到重复字符的下一位）。用 Set 或 Map 记录窗口内字符。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "5",
+    "title": "5. 最长回文子串",
+    "url": "https://leetcode.cn/problems/longest-palindromic-substring/",
+    "difficulty": "Medium",
+    "tags": [
+      "字符串",
+      "动态规划"
+    ],
+    "pattern_hint": "【中心扩散法】遍历字符串，以每个字符（或双字符间隙）为中心向两边扩散，直到左右不相等。记录最大长度。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "11",
+    "title": "11. 盛最多水的容器",
+    "url": "https://leetcode.cn/problems/container-with-most-water/",
+    "difficulty": "Medium",
+    "tags": [
+      "贪心",
+      "数组",
+      "双指针"
+    ],
+    "pattern_hint": "【双指针-贪心】左右两边向中间靠拢。核心逻辑：总是移动短的那块板（因为移动长板面积一定变小，移动短板才可能变大）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "15",
+    "title": "15. 三数之和",
+    "url": "https://leetcode.cn/problems/3sum/",
+    "difficulty": "Medium",
+    "tags": [
+      "数组",
+      "双指针",
+      "排序"
+    ],
+    "pattern_hint": "【排序+双指针】先排序。固定第一个数 i，剩下两个数用双指针 left, right 在 i 后面的区间找。注意跳过重复元素去重。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "20",
+    "title": "20. 有效的括号",
+    "url": "https://leetcode.cn/problems/valid-parentheses/",
+    "difficulty": "Easy",
+    "tags": [
+      "栈",
+      "设计"
+    ],
+    "pattern_hint": "【辅助栈】遇到左括号入栈，遇到右括号检查栈顶是否匹配。最后检查栈是否为空。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "21",
+    "title": "21. 合并两个有序链表",
+    "url": "https://leetcode.cn/problems/merge-two-sorted-lists/",
+    "difficulty": "Easy",
+    "tags": [
+      "递归",
+      "链表"
+    ],
+    "pattern_hint": "【穿针引线】建立 dummy 节点，比较 l1 和 l2 的值，小的接在 cur 后面，然后小的指针后移。最后把没走完的链表直接接上。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "22",
+    "title": "22. 括号生成",
+    "url": "https://leetcode.cn/problems/generate-parentheses/",
+    "difficulty": "Medium",
+    "tags": [
+      "字符串",
+      "动态规划",
+      "回溯"
+    ],
+    "pattern_hint": "【回溯/DFS】关键限制：左括号随时可以加（只要不超过 n），右括号必须在左括号剩余数量 < 右括号剩余数量时才能加。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "33",
+    "title": "33. 搜索旋转排序数组",
+    "url": "https://leetcode.cn/problems/search-in-rotated-sorted-array/",
+    "difficulty": "Medium",
+    "tags": [
+      "数组",
+      "二分查找"
+    ],
+    "pattern_hint": "【二分查找变体】将数组一分为二，其中一半一定是有序的。判断 target 是否在有序的那一半里，从而决定舍弃哪一半。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "42",
+    "title": "42. 接雨水",
+    "url": "https://leetcode.cn/problems/trapping-rain-water/",
+    "difficulty": "Hard",
+    "tags": [
+      "栈",
+      "数组",
+      "双指针",
+      "动态规划"
+    ],
+    "pattern_hint": "【双指针】最高效解法。维护 left_max 和 right_max。哪边低，哪边就可以确定能接多少水（取决于短板），然后向中间移动。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "46",
+    "title": "46. 全排列",
+    "url": "https://leetcode.cn/problems/permutations/",
+    "difficulty": "Medium",
+    "tags": [
+      "数组",
+      "回溯"
+    ],
+    "pattern_hint": "【回溯模板】for 循环遍历选择列表，做选择 -> backtrack() -> 撤销选择。使用 used 数组记录已使用的数字。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "53",
+    "title": "53. 最大子数组和",
+    "url": "https://leetcode.cn/problems/maximum-subarray/",
+    "difficulty": "Medium",
+    "tags": [
+      "数组",
+      "分治",
+      "动态规划"
+    ],
+    "pattern_hint": "【贪心/DP】如果当前的前缀和 < 0，对后面毫无贡献，直接丢弃，从当前数字重新开始计算。记录过程中的最大值。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "70",
+    "title": "70. 爬楼梯",
+    "url": "https://leetcode.cn/problems/climbing-stairs/",
+    "difficulty": "Easy",
+    "tags": [
+      "记忆化搜索",
+      "数学",
+      "动态规划"
+    ],
+    "pattern_hint": "【斐波那契数列】dp[i] = dp[i-1] + dp[i-2]。也就是到第 i 阶的方法 = 从 i-1 跳上来 + 从 i-2 跳上来。注意滚动数组优化空间。",
+    "status": "solved",
+    "my_code": "try",
+    "notes": "try"
+  },
+  {
+    "id": "121",
+    "title": "121. 买卖股票的最佳时机",
+    "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/",
+    "difficulty": "Easy",
+    "tags": [
+      "数组",
+      "动态规划"
+    ],
+    "pattern_hint": "【一次遍历】记录历史最低点 min_price，每天都尝试计算：如果今天卖出能赚多少 (current - min_price)，维护最大利润。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  }
+]
