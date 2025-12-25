@@ -82,6 +82,65 @@ def save_notes(question_id: str, title: str, notes: str) -> Optional[Path]:
     return path
 
 
+def read_notes(question_id: str, title: str) -> str:
+    filename = f"{_format_id(question_id)}_{_slugify_title(title)}.md"
+    path = NOTES_DIR / filename
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8")
+
+
+def reset_question_data(question_id: str) -> Optional[Dict[str, Any]]:
+    questions = load_questions()
+    updated_question = None
+    for question in questions:
+        if str(question.get("id")) == str(question_id):
+            question["status"] = "unsolved"
+            question["my_code"] = ""
+            question["notes"] = ""
+            updated_question = question
+            break
+    if updated_question is None:
+        return None
+    save_questions(questions)
+    return updated_question
+
+
+def reset_all_questions() -> int:
+    questions = load_questions()
+    for question in questions:
+        question["status"] = "unsolved"
+        question["my_code"] = ""
+        question["notes"] = ""
+    save_questions(questions)
+    return len(questions)
+
+
+def clear_question_files(question_id: str, title: str) -> None:
+    prefix = f"{_format_id(question_id)}_{_slugify_title(title)}"
+    if SOLUTIONS_DIR.exists():
+        for path in SOLUTIONS_DIR.glob(f"{prefix}_*.py"):
+            if path.is_file():
+                path.unlink()
+    best_path = BEST_DIR / f"{prefix}.py"
+    if best_path.exists():
+        best_path.unlink()
+    notes_path = NOTES_DIR / f"{prefix}.md"
+    if notes_path.exists():
+        notes_path.unlink()
+
+
+def clear_all_files() -> None:
+    if SOLUTIONS_DIR.exists():
+        for path in SOLUTIONS_DIR.rglob("*"):
+            if path.is_file():
+                path.unlink()
+    if NOTES_DIR.exists():
+        for path in NOTES_DIR.rglob("*"):
+            if path.is_file():
+                path.unlink()
+
+
 def _format_id(question_id: str) -> str:
     digits = re.sub(r"\D+", "", str(question_id))
     return digits.zfill(3) if digits else str(question_id)
