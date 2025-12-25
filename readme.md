@@ -1,19 +1,65 @@
-LeetCode-Hot100-Hunter/          # 项目根目录
-│
-├── app.py                       # 【核心】Streamlit 主程序入口，界面的代码全在这里
-├── requirements.txt             # 【依赖】记录项目需要的库（如 streamlit, pandas 等）
-├── README.md                    # 【门面】项目说明文档（非常有必要，写清楚它是干嘛的）
-├── .gitignore                   # 【规范】告诉 Git 忽略哪些垃圾文件
-│
-├── data/                        # 【数据层】存放题目数据
-│   └── problems.json            # 这里面存 Hot 100 的题目、分类、提示和做题状态
-│
-├── solutions/                   # 【产出层】存放你写出来的 AC 代码（最值钱的部分）
-│   ├── 001_two_sum.py           # 命名建议：ID_英文题名.py
-│   ├── 002_add_two_numbers.py
-│   └── ...                      # 你的每一次提交都会增加一个文件
-│
-└── utils/                       # 【工具层】把复杂的逻辑抽离出来，保持 app.py 干净
-    ├── __init__.py
-    ├── data_manager.py          # 负责读取、更新 json 数据的函数
-    └── git_helper.py            # 负责自动执行 git add/commit/push 的脚本
+LeetCode-Hot100-Hunter
+=====================
+
+一个轻量的 LeetCode 刷题仪表盘，主打随机抽题、进度跟踪、解法归档、笔记沉淀和轻量 AI 思路助手。
+
+功能亮点
+--------
+- 随机抽题：可重复抽到已完成题（权重更低）
+- 题目展示：标题直达 LeetCode、难度、标签、算法锦囊
+- 解法归档：默认保存为带时间戳文件，不覆盖历史；可标记 best
+- 复习模式：侧边栏可选择已完成题目，重新做题不预填
+- 历史笔记：以文件形式追加记录，页面右侧可只读查看
+- 相关题目：基于相同标签快速跳转
+- Git 集成：提交时自动 add/commit，Push 按钮单独触发
+- AI 思路助手：支持 OpenAI 兼容接口（DeepSeek 默认）
+
+快速运行
+--------
+1. 安装依赖（如有 requirements.txt 可自行补充）：
+   pip install streamlit
+2. 启动：
+   streamlit run app.py
+
+Windows 快捷启动（可选）
+-----------------------
+创建 `start_hunter.bat`：
+```
+@echo off
+cd /d D:\AA_NUS\projects\LeetCode-Hot100-Hunter
+call conda activate pytorch
+streamlit run app.py
+pause
+```
+双击即可启动。
+
+页面使用说明
+------------
+- 左侧：进度条、复习已完成题目、Push 按钮、清零功能
+- 中间：题目内容、算法锦囊、代码/笔记输入、提交
+- 右侧：相关题目、历史笔记（只读）、AI 思路助手
+
+提交逻辑
+--------
+- 解法保存：`solutions/{id}_{slug}_{timestamp}.py`
+- best 解法：`solutions/best/{id}_{slug}.py`（同题覆盖）
+- 笔记保存：`notes/{id}_{slug}.md`（追加，首行时间戳）
+- 提交时自动 `git add/commit`，Push 需手动点击
+
+AI 配置（可选）
+--------------
+在项目根目录创建 `ai_config.txt`（已加入 .gitignore）：
+```
+AI_API_KEY=你的密钥
+AI_BASE_URL=https://api.deepseek.com/v1
+AI_MODEL=deepseek-chat
+```
+也可改用环境变量 `AI_API_KEY/AI_BASE_URL/AI_MODEL`。
+
+目录结构（简版）
+--------------
+- `app.py`：Streamlit 主界面
+- `data/problems.json`：题库数据
+- `solutions/`：解法输出（含 `best/`）
+- `notes/`：笔记输出
+- `utils/`：数据、Git、AI 相关工具

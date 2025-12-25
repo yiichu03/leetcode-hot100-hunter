@@ -152,102 +152,125 @@ if st.button("🎲 随机抽取一道题", use_container_width=True):
 question = st.session_state.current_question
 
 if question:
-    st.markdown(f"### [{question.get('title')}]({question.get('url')})")
-    st.write(f"**难度：** {question.get('difficulty')}")
-    st.write(f"**Tags：** {' / '.join(question.get('tags', []))}")
+    main_col, side_col = st.columns([2, 1])
 
-    with st.expander("💡 查看算法锦囊"):
-        st.write(question.get("pattern_hint", ""))
+    with side_col:
+        with st.expander("🔗 相关题目"):
+            current_tags = set(question.get("tags", []))
+            related = []
+            for q in questions:
+                if q.get("id") == question.get("id"):
+                    continue
+                if current_tags.intersection(set(q.get("tags", []))):
+                    related.append(q)
+            if not related:
+                st.caption("暂无相关题目。")
+            else:
+                for q in related[:8]:
+                    label = f"{q.get('id')} - {q.get('title')}"
+                    if st.button(label, key=f"rel_{q.get('id')}"):
+                        st.session_state.current_question = q
+                        st.session_state.code_input = ""
+                        st.session_state.notes_input = ""
+                        st.rerun()
 
-    st.text_area("代码", height=240, key="code_input")
-    st.text_area("笔记", height=140, key="notes_input")
-    mark_best = st.checkbox("标记为 best 解法（覆盖同题最佳）", value=False)
-
-    if st.button("提交 ✅"):
-        updated = update_status(
-            question_id=question.get("id"),
-            code=st.session_state.code_input,
-            notes=st.session_state.notes_input,
-        )
-        if updated is None:
-            st.error("更新失败，请检查题目 ID。")
-        else:
-            solution_path = save_solution(
+        with st.expander("📒 查看以往笔记（只读）"):
+            history = read_notes(
                 question_id=question.get("id"),
                 title=question.get("title", ""),
-                code=st.session_state.code_input,
-                is_best=mark_best,
             )
-            notes_path = save_notes(
+            if history:
+                st.text_area("历史笔记", value=history, height=220, disabled=True)
+            else:
+                st.caption("暂无历史笔记。")
+
+        with st.expander("🤖 AI 思路助手（实验）"):
+            ai_cfg = get_ai_config()
+            if not ai_cfg["api_key"]:
+                st.info("请先设置环境变量 AI_API_KEY 才能调用。")
+            prompt = st.text_area("提问", height=120, key="ai_prompt")
+            include_context = st.checkbox("附带题目信息", value=True)
+            if st.button("发送到 AI"):
+                if not ai_cfg["api_key"]:
+                    st.error("未配置 AI_API_KEY。")
+                elif not prompt.strip():
+                    st.warning("请输入问题。")
+                else:
+                    messages = [{"role": "user", "content": prompt.strip()}]
+                    if include_context:
+                        context = (
+                            f"题目：{question.get('title')}\n"
+                            f"难度：{question.get('difficulty')}\n"
+                            f"标签：{', '.join(question.get('tags', []))}\n"
+                            f"提示：{question.get('pattern_hint')}\n"
+                        )
+                        messages.insert(
+                            0,
+                            {
+                                "role": "system",
+                                "content": "你是算法学习助手，给出思路提示而非完整答案。\n"
+                                + context,
+                            },
+                        )
+                    ok, content = call_openai_compatible(
+                        messages=messages,
+                        model=ai_cfg["model"],
+                        base_url=ai_cfg["base_url"],
+                        api_key=ai_cfg["api_key"],
+                    )
+                    if ok:
+                        st.write(content)
+                    else:
+                        st.error(content)
+
+    with main_col:
+        st.markdown(f"### [{question.get('title')}]({question.get('url')})")
+        st.write(f"**难度：** {question.get('difficulty')}")
+        st.write(f"**Tags：** {' / '.join(question.get('tags', []))}")
+
+        with st.expander("💡 查看算法锦囊"):
+            st.write(question.get("pattern_hint", ""))
+
+        st.text_area("代码", height=240, key="code_input")
+        st.text_area("笔记", height=140, key="notes_input")
+        mark_best = st.checkbox("标记为 best 解法（覆盖同题最佳）", value=False)
+
+        if st.button("提交 ✅"):
+            updated = update_status(
                 question_id=question.get("id"),
-                title=question.get("title", ""),
+                code=st.session_state.code_input,
                 notes=st.session_state.notes_input,
             )
-            commit_paths = ["data/problems.json", str(solution_path)]
-            if notes_path is not None:
-                commit_paths.append(str(notes_path))
-            commit_result = git_add_commit(
-                paths=commit_paths,
-                message=format_commit_message(
+            if updated is None:
+                st.error("更新失败，请检查题目 ID。")
+            else:
+                solution_path = save_solution(
                     question_id=question.get("id"),
                     title=question.get("title", ""),
-                ),
-            )
-            if commit_result.returncode != 0:
-                st.warning(commit_result.stderr.strip() or "Git commit 失败。")
-            st.balloons()
-            st.success("已保存，继续加油！")
-            st.session_state.current_question = updated
-            st.rerun()
-
-    with st.expander("📒 查看以往笔记（只读）"):
-        history = read_notes(
-            question_id=question.get("id"),
-            title=question.get("title", ""),
-        )
-        if history:
-            st.text_area("历史笔记", value=history, height=220, disabled=True)
-        else:
-            st.caption("暂无历史笔记。")
-
-    with st.expander("🤖 AI 思路助手（实验）"):
-        ai_cfg = get_ai_config()
-        if not ai_cfg["api_key"]:
-            st.info("请先设置环境变量 AI_API_KEY 才能调用。")
-        prompt = st.text_area("提问", height=120, key="ai_prompt")
-        include_context = st.checkbox("附带题目信息", value=True)
-        if st.button("发送到 AI"):
-            if not ai_cfg["api_key"]:
-                st.error("未配置 AI_API_KEY。")
-            elif not prompt.strip():
-                st.warning("请输入问题。")
-            else:
-                messages = [{"role": "user", "content": prompt.strip()}]
-                if include_context:
-                    context = (
-                        f"题目：{question.get('title')}\n"
-                        f"难度：{question.get('difficulty')}\n"
-                        f"标签：{', '.join(question.get('tags', []))}\n"
-                        f"提示：{question.get('pattern_hint')}\n"
-                    )
-                    messages.insert(
-                        0,
-                        {
-                            "role": "system",
-                            "content": "你是算法学习助手，给出思路提示而非完整答案。\n"
-                            + context,
-                        },
-                    )
-                ok, content = call_openai_compatible(
-                    messages=messages,
-                    model=ai_cfg["model"],
-                    base_url=ai_cfg["base_url"],
-                    api_key=ai_cfg["api_key"],
+                    code=st.session_state.code_input,
+                    is_best=mark_best,
                 )
-                if ok:
-                    st.write(content)
-                else:
-                    st.error(content)
+                notes_path = save_notes(
+                    question_id=question.get("id"),
+                    title=question.get("title", ""),
+                    notes=st.session_state.notes_input,
+                )
+                commit_paths = ["data/problems.json", str(solution_path)]
+                if notes_path is not None:
+                    commit_paths.append(str(notes_path))
+                commit_result = git_add_commit(
+                    paths=commit_paths,
+                    message=format_commit_message(
+                        question_id=question.get("id"),
+                        title=question.get("title", ""),
+                    ),
+                )
+                if commit_result.returncode != 0:
+                    st.warning(commit_result.stderr.strip() or "Git commit 失败。")
+                st.balloons()
+                st.success("已保存，继续加油！")
+                st.session_state.current_question = updated
+                st.rerun()
 elif total == 0:
     st.warning("暂未找到题目数据，请检查 data/problems.json。")
 else:

@@ -2,13 +2,13 @@
   {
     "id": "1",
     "title": "1. 两数之和",
-    "url": "https://leetcode.cn/problems/two-sum/",
     "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/two-sum/",
     "tags": [
-      "数组",
-      "哈希表"
+      "哈希表",
+      "数组"
     ],
-    "pattern_hint": "【空间换时间】建立一个 HashMap，Key存数字，Value存下标。遍历时检查 (Target - 当前数) 是否在 Map 中。",
+    "pattern_hint": "【哈希表】用 Map 记录遍历过的数字 (key=num, value=index)，检查 target-current 是否存在。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -16,14 +16,13 @@
   {
     "id": "2",
     "title": "2. 两数相加",
-    "url": "https://leetcode.cn/problems/add-two-numbers/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/add-two-numbers/",
     "tags": [
       "递归",
-      "链表",
-      "数学"
+      "链表"
     ],
-    "pattern_hint": "【模拟】模拟人工加法。重点在于处理进位(carry)和两个链表长度不一样的情况。可以用一个 dummy head 简化代码。",
+    "pattern_hint": "【链表操作】模拟加法。注意进位 carry 的处理，以及链表长度不一致时的补零逻辑。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -31,14 +30,27 @@
   {
     "id": "3",
     "title": "3. 无重复字符的最长子串",
-    "url": "https://leetcode.cn/problems/longest-substring-without-repeating-characters/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/longest-substring-without-repeating-characters/",
     "tags": [
-      "哈希表",
-      "字符串",
-      "滑动窗口"
+      "滑动窗口",
+      "哈希表"
     ],
-    "pattern_hint": "【滑动窗口】右指针主动扩张，遇到重复字符时，左指针被动收缩（跳到重复字符的下一位）。用 Set 或 Map 记录窗口内字符。",
+    "pattern_hint": "【滑动窗口】右指针扩张，遇到重复字符左指针收缩。用 Map 记录字符最后出现的位置可优化左指针跳转。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "4",
+    "title": "4. 寻找两个正序数组的中位数",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/median-of-two-sorted-arrays/",
+    "tags": [
+      "数组",
+      "二分查找"
+    ],
+    "pattern_hint": "【二分查找】转化为找第 k 小的数。每次排除 k/2 个元素，达到 O(log(m+n)) 复杂度。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -46,13 +58,27 @@
   {
     "id": "5",
     "title": "5. 最长回文子串",
-    "url": "https://leetcode.cn/problems/longest-palindromic-substring/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/longest-palindromic-substring/",
     "tags": [
       "字符串",
       "动态规划"
     ],
-    "pattern_hint": "【中心扩散法】遍历字符串，以每个字符（或双字符间隙）为中心向两边扩散，直到左右不相等。记录最大长度。",
+    "pattern_hint": "【中心扩散】遍历每个字符作为中心向两边扩散。注意奇偶长度的处理（中心是一个字符或两个）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "10",
+    "title": "10. 正则表达式匹配",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/regular-expression-matching/",
+    "tags": [
+      "动态规划",
+      "递归"
+    ],
+    "pattern_hint": "【动态规划】dp[i][j] 表示 s[:i] 和 p[:j] 是否匹配。重点在于 '*' 的两种情况：匹配0次或多次。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -60,14 +86,13 @@
   {
     "id": "11",
     "title": "11. 盛最多水的容器",
-    "url": "https://leetcode.cn/problems/container-with-most-water/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/container-with-most-water/",
     "tags": [
-      "贪心",
-      "数组",
-      "双指针"
+      "双指针",
+      "贪心"
     ],
-    "pattern_hint": "【双指针-贪心】左右两边向中间靠拢。核心逻辑：总是移动短的那块板（因为移动长板面积一定变小，移动短板才可能变大）。",
+    "pattern_hint": "【双指针】左右指针向中间移动，每次移动高度较小的那个柱子（短板效应），维护最大面积。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -75,14 +100,41 @@
   {
     "id": "15",
     "title": "15. 三数之和",
-    "url": "https://leetcode.cn/problems/3sum/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/3sum/",
     "tags": [
       "数组",
-      "双指针",
-      "排序"
+      "双指针"
     ],
-    "pattern_hint": "【排序+双指针】先排序。固定第一个数 i，剩下两个数用双指针 left, right 在 i 后面的区间找。注意跳过重复元素去重。",
+    "pattern_hint": "【排序+双指针】先排序。固定 nums[i]，然后用双指针找 nums[L]+nums[R] = -nums[i]。注意去重。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "17",
+    "title": "17. 电话号码的字母组合",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/letter-combinations-of-a-phone-number/",
+    "tags": [
+      "回溯",
+      "字符串"
+    ],
+    "pattern_hint": "【回溯】经典的组合问题。维护当前路径 path，遍历当前数字对应的所有字母，递归进入下一层。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "19",
+    "title": "19. 删除链表的倒数第 N 个结点",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/remove-nth-node-from-end-of-list/",
+    "tags": [
+      "链表",
+      "双指针"
+    ],
+    "pattern_hint": "【快慢指针】让快指针先走 n 步，然后快慢指针一起走，当快指针到头时，慢指针刚好在待删除节点的前一个位置。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -90,13 +142,12 @@
   {
     "id": "20",
     "title": "20. 有效的括号",
-    "url": "https://leetcode.cn/problems/valid-parentheses/",
     "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/valid-parentheses/",
     "tags": [
-      "栈",
-      "设计"
+      "栈"
     ],
-    "pattern_hint": "【辅助栈】遇到左括号入栈，遇到右括号检查栈顶是否匹配。最后检查栈是否为空。",
+    "pattern_hint": "【栈】左括号入栈，右括号出栈并匹配。最后检查栈是否为空。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -104,13 +155,13 @@
   {
     "id": "21",
     "title": "21. 合并两个有序链表",
-    "url": "https://leetcode.cn/problems/merge-two-sorted-lists/",
     "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/merge-two-sorted-lists/",
     "tags": [
-      "递归",
-      "链表"
+      "链表",
+      "递归"
     ],
-    "pattern_hint": "【穿针引线】建立 dummy 节点，比较 l1 和 l2 的值，小的接在 cur 后面，然后小的指针后移。最后把没走完的链表直接接上。",
+    "pattern_hint": "【双指针/递归】建立 dummy 头结点。比较两个链表头的值，小的接在后面。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -118,14 +169,56 @@
   {
     "id": "22",
     "title": "22. 括号生成",
-    "url": "https://leetcode.cn/problems/generate-parentheses/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/generate-parentheses/",
     "tags": [
-      "字符串",
-      "动态规划",
-      "回溯"
+      "回溯",
+      "字符串"
     ],
-    "pattern_hint": "【回溯/DFS】关键限制：左括号随时可以加（只要不超过 n），右括号必须在左括号剩余数量 < 右括号剩余数量时才能加。",
+    "pattern_hint": "【回溯】控制左括号和右括号的数量。限制：左括号 < n 时可加左；右括号 < 左括号数量时才可加右。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "23",
+    "title": "23. 合并 K 个升序链表",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/merge-k-sorted-lists/",
+    "tags": [
+      "堆",
+      "链表",
+      "分治"
+    ],
+    "pattern_hint": "【优先队列/堆】将所有链表的头节点放入小顶堆，每次取出最小的接在新链表后，并将该节点的 next 放回堆中。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "31",
+    "title": "31. 下一个排列",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/next-permutation/",
+    "tags": [
+      "数组",
+      "双指针"
+    ],
+    "pattern_hint": "【找规律】从后往前找第一个降序对 (i, i+1)，然后在 i 后面找比 nums[i] 大的最小数交换，最后反转 i 之后的序列。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "32",
+    "title": "32. 最长有效括号",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/longest-valid-parentheses/",
+    "tags": [
+      "栈",
+      "动态规划"
+    ],
+    "pattern_hint": "【栈/DP】栈底保持'最后一个没有被匹配的右括号的下标'。每次匹配成功，用当前下标减去栈顶元素更新最大长度。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -133,13 +226,41 @@
   {
     "id": "33",
     "title": "33. 搜索旋转排序数组",
-    "url": "https://leetcode.cn/problems/search-in-rotated-sorted-array/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/search-in-rotated-sorted-array/",
     "tags": [
       "数组",
       "二分查找"
     ],
-    "pattern_hint": "【二分查找变体】将数组一分为二，其中一半一定是有序的。判断 target 是否在有序的那一半里，从而决定舍弃哪一半。",
+    "pattern_hint": "【二分查找】判断哪一半是有序的。如果 nums[mid] >= nums[left]，左半边有序，否则右半边有序。然后判断 target 是否在有序区间内。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "34",
+    "title": "34. 在排序数组中查找元素的第一个和最后一个位置",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/",
+    "tags": [
+      "数组",
+      "二分查找"
+    ],
+    "pattern_hint": "【二分查找】进行两次二分。一次找 target 的左边界（>= target 的第一个），一次找右边界。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "39",
+    "title": "39. 组合总和",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/combination-sum/",
+    "tags": [
+      "数组",
+      "回溯"
+    ],
+    "pattern_hint": "【回溯】可以重复选择元素，所以在递归时 index 不加 1。注意剪枝：如果当前和 > target 直接返回。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -147,15 +268,14 @@
   {
     "id": "42",
     "title": "42. 接雨水",
-    "url": "https://leetcode.cn/problems/trapping-rain-water/",
     "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/trapping-rain-water/",
     "tags": [
-      "栈",
-      "数组",
       "双指针",
+      "栈",
       "动态规划"
     ],
-    "pattern_hint": "【双指针】最高效解法。维护 left_max 和 right_max。哪边低，哪边就可以确定能接多少水（取决于短板），然后向中间移动。",
+    "pattern_hint": "【双指针】维护 left_max 和 right_max。比较两端高度，低的一端可以确定能接多少水（受限于短板），然后向中间移动。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -163,13 +283,41 @@
   {
     "id": "46",
     "title": "46. 全排列",
-    "url": "https://leetcode.cn/problems/permutations/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/permutations/",
     "tags": [
       "数组",
       "回溯"
     ],
-    "pattern_hint": "【回溯模板】for 循环遍历选择列表，做选择 -> backtrack() -> 撤销选择。使用 used 数组记录已使用的数字。",
+    "pattern_hint": "【回溯】使用 visited 数组记录当前路径已使用的数字。for 循环遍历选择列表。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "48",
+    "title": "48. 旋转图像",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/rotate-image/",
+    "tags": [
+      "数组",
+      "数学"
+    ],
+    "pattern_hint": "【数学】先沿对角线翻转，再沿中心竖轴左右翻转。或者由外向内一层层旋转。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "49",
+    "title": "49. 字母异位词分组",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/group-anagrams/",
+    "tags": [
+      "哈希表",
+      "字符串"
+    ],
+    "pattern_hint": "【哈希表】将字符串排序后作为 key（或用 26 个字母计数作为 key），原字符串作为 value 存入 Map。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -177,14 +325,68 @@
   {
     "id": "53",
     "title": "53. 最大子数组和",
-    "url": "https://leetcode.cn/problems/maximum-subarray/",
     "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/maximum-subarray/",
     "tags": [
       "数组",
-      "分治",
       "动态规划"
     ],
-    "pattern_hint": "【贪心/DP】如果当前的前缀和 < 0，对后面毫无贡献，直接丢弃，从当前数字重新开始计算。记录过程中的最大值。",
+    "pattern_hint": "【贪心/DP】如果当前前缀和 < 0，则丢弃，从当前数字重新开始累加。同时记录全局最大值。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "55",
+    "title": "55. 跳跃游戏",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/jump-game/",
+    "tags": [
+      "贪心",
+      "数组"
+    ],
+    "pattern_hint": "【贪心】维护一个'能到达的最远距离' max_reach。遍历数组，如果当前索引 <= max_reach，则更新 max_reach。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "56",
+    "title": "56. 合并区间",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/merge-intervals/",
+    "tags": [
+      "排序",
+      "数组"
+    ],
+    "pattern_hint": "【排序】先按区间 start 排序。遍历区间，如果当前区间的 start <= 上一个区间的 end，则合并（end 取 max）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "62",
+    "title": "62. 不同路径",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/unique-paths/",
+    "tags": [
+      "动态规划",
+      "数学"
+    ],
+    "pattern_hint": "【动态规划】dp[i][j] = dp[i-1][j] + dp[i][j-1]。或者用排列组合公式 C(m+n-2, m-1)。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "64",
+    "title": "64. 最小路径和",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/minimum-path-sum/",
+    "tags": [
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])。可原地修改 grid 节省空间。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -192,14 +394,225 @@
   {
     "id": "70",
     "title": "70. 爬楼梯",
-    "url": "https://leetcode.cn/problems/climbing-stairs/",
     "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/climbing-stairs/",
     "tags": [
-      "记忆化搜索",
-      "数学",
       "动态规划"
     ],
-    "pattern_hint": "【斐波那契数列】dp[i] = dp[i-1] + dp[i-2]。也就是到第 i 阶的方法 = 从 i-1 跳上来 + 从 i-2 跳上来。注意滚动数组优化空间。",
+    "pattern_hint": "【斐波那契】状态转移方程 f(n) = f(n-1) + f(n-2)。使用滚动数组优化空间到 O(1)。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "72",
+    "title": "72. 编辑距离",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/edit-distance/",
+    "tags": [
+      "动态规划",
+      "字符串"
+    ],
+    "pattern_hint": "【动态规划】dp[i][j] 表示 word1 前 i 个和 word2 前 j 个的最小操作数。注意增删改三种操作对应的状态转移。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "75",
+    "title": "75. 颜色分类",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/sort-colors/",
+    "tags": [
+      "双指针",
+      "排序"
+    ],
+    "pattern_hint": "【三指针】p0 指向 0 的右边界，p2 指向 2 的左边界，curr 遍历。遇到 0 交换并前移 p0，遇到 2 交换并前移 p2（curr 不动），遇到 1 仅 curr 前移。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "76",
+    "title": "76. 最小覆盖子串",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/minimum-window-substring/",
+    "tags": [
+      "滑动窗口",
+      "哈希表"
+    ],
+    "pattern_hint": "【滑动窗口】右移扩大窗口直到涵盖所有字符，然后左移收缩窗口尽可能小，记录最小长度。用 Map 记录需要的字符数量。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "78",
+    "title": "78. 子集",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/subsets/",
+    "tags": [
+      "位运算",
+      "数组",
+      "回溯"
+    ],
+    "pattern_hint": "【回溯】每个元素选或不选。或者按照二进制位掩码生成子集。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "79",
+    "title": "79. 单词搜索",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/word-search/",
+    "tags": [
+      "回溯",
+      "数组"
+    ],
+    "pattern_hint": "【DFS/回溯】在网格中进行 DFS。进入前标记 visited，退出时还原（回溯）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "84",
+    "title": "84. 柱状图中最大的矩形",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/largest-rectangle-in-histogram/",
+    "tags": [
+      "栈",
+      "数组"
+    ],
+    "pattern_hint": "【单调栈】寻找每个柱子左右两边第一个比它矮的柱子，确定宽度。栈存储下标，保持栈内高度单调递增。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "85",
+    "title": "85. 最大矩形",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/maximal-rectangle/",
+    "tags": [
+      "栈",
+      "动态规划"
+    ],
+    "pattern_hint": "【单调栈】每一行都可以看作是一个'柱状图'（如果当前是 0 则高度归零）。复用第 84 题的解法。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "94",
+    "title": "94. 二叉树的中序遍历",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/binary-tree-inorder-traversal/",
+    "tags": [
+      "栈",
+      "树"
+    ],
+    "pattern_hint": "【递归/栈】左 -> 根 -> 右。迭代法需用栈，一直向左走到头入栈，弹出处理，再转向右子树。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "96",
+    "title": "96. 不同的二叉搜索树",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/unique-binary-search-trees/",
+    "tags": [
+      "树",
+      "动态规划"
+    ],
+    "pattern_hint": "【卡塔兰数】G(n) = G(0)*G(n-1) + G(1)*G(n-2) + ...。以 i 为根，左边 i-1 个点，右边 n-i 个点。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "98",
+    "title": "98. 验证二叉搜索树",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/validate-binary-search-tree/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【中序遍历】BST 的中序遍历必须是严格递增的。或者 DFS 时带入 (min, max) 范围约束。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "101",
+    "title": "101. 对称二叉树",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/symmetric-tree/",
+    "tags": [
+      "树",
+      "DFS",
+      "BFS"
+    ],
+    "pattern_hint": "【递归】判断两个子树是否镜像：p.val == q.val 且 p.left==q.right 且 p.right==q.left。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "102",
+    "title": "102. 二叉树的层序遍历",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/binary-tree-level-order-traversal/",
+    "tags": [
+      "树",
+      "BFS"
+    ],
+    "pattern_hint": "【BFS】使用队列。每次循环处理当前队列长度的所有节点（即这一层的所有节点），并将它们的子节点入队。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "104",
+    "title": "104. 二叉树的最大深度",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/maximum-depth-of-binary-tree/",
+    "tags": [
+      "树",
+      "DFS",
+      "BFS"
+    ],
+    "pattern_hint": "【递归】MaxDepth = max(Left, Right) + 1。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "105",
+    "title": "105. 从前序与中序遍历序列构造二叉树",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",
+    "tags": [
+      "树",
+      "数组"
+    ],
+    "pattern_hint": "【递归】前序第一个是根。在中序中找到根的位置，左边是左子树，右边是右子树。递归构建。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "114",
+    "title": "114. 二叉树展开为链表",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【后序遍历】变体：右 -> 左 -> 根。用一个 prev 指针记录上一个访问的节点。或者寻找前驱节点。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
@@ -207,13 +620,786 @@
   {
     "id": "121",
     "title": "121. 买卖股票的最佳时机",
-    "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/",
     "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/",
     "tags": [
       "数组",
       "动态规划"
     ],
-    "pattern_hint": "【一次遍历】记录历史最低点 min_price，每天都尝试计算：如果今天卖出能赚多少 (current - min_price)，维护最大利润。",
+    "pattern_hint": "【贪心】记录历史最低价 min_price，每天尝试卖出计算利润，维护最大利润。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "124",
+    "title": "124. 二叉树中的最大路径和",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/binary-tree-maximum-path-sum/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【递归】函数返回'从当前节点向下的最大单边路径和'。在递归过程中计算经过当前节点的'拱形'路径和并更新全局最大值。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "128",
+    "title": "128. 最长连续序列",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/longest-consecutive-sequence/",
+    "tags": [
+      "哈希表",
+      "并查集"
+    ],
+    "pattern_hint": "【哈希表】存入 Set。遍历每个数，如果 num-1 不在 Set 中，说明它是序列起点，开始 while 循环向后找 num+1。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "136",
+    "title": "136. 只出现一次的数字",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/single-number/",
+    "tags": [
+      "位运算"
+    ],
+    "pattern_hint": "【异或】a ^ a = 0，a ^ 0 = a。全部数字异或一遍，剩下的就是那个只出现一次的数字。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "139",
+    "title": "139. 单词拆分",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/word-break/",
+    "tags": [
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】dp[i] 表示 s[0...i-1] 是否可被拆分。遍历 j < i，检查 dp[j] 且 s[j...i-1] 在字典中。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "141",
+    "title": "141. 环形链表",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/linked-list-cycle/",
+    "tags": [
+      "链表",
+      "双指针"
+    ],
+    "pattern_hint": "【快慢指针】Slow 走一步，Fast 走两步。如果相遇则有环，如果 Fast 走到 null 则无环。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "142",
+    "title": "142. 环形链表 II",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/linked-list-cycle-ii/",
+    "tags": [
+      "链表",
+      "双指针"
+    ],
+    "pattern_hint": "【快慢指针】相遇后，Slow 回到头，Fast 留在原地，每次都走一步，再次相遇点即为环入口。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "146",
+    "title": "146. LRU 缓存",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/lru-cache/",
+    "tags": [
+      "设计",
+      "哈希表",
+      "链表"
+    ],
+    "pattern_hint": "【哈希表+双向链表】Map 存 Key->Node，双向链表存顺序。访问节点时移到链表头，容量满时删除链表尾。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "148",
+    "title": "148. 排序链表",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/sort-list/",
+    "tags": [
+      "链表",
+      "分治"
+    ],
+    "pattern_hint": "【归并排序】快慢指针找中点断开，递归排序左右两半，最后合并两个有序链表。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "152",
+    "title": "152. 乘积最大子数组",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/maximum-product-subarray/",
+    "tags": [
+      "数组",
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】需要同时维护 max_prod 和 min_prod，因为负负得正，最小负数乘负数可能变最大。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "155",
+    "title": "155. 最小栈",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/min-stack/",
+    "tags": [
+      "栈",
+      "设计"
+    ],
+    "pattern_hint": "【辅助栈】维护一个 min_stack，栈顶始终存放当前主栈内的最小值。push 时若 <= min_stack 栈顶则入栈。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "160",
+    "title": "160. 相交链表",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/intersection-of-two-linked-lists/",
+    "tags": [
+      "链表",
+      "双指针"
+    ],
+    "pattern_hint": "【双指针】A 走完走 B，B 走完走 A。如果有交点，它们会在交点相遇；没交点则在 null 相遇。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "169",
+    "title": "169. 多数元素",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/majority-element/",
+    "tags": [
+      "数组",
+      "计数"
+    ],
+    "pattern_hint": "【摩尔投票法】Candidate 记 1 票，遇到相同的加 1，不同的减 1，减到 0 换人。最后剩下的一定是众数。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "198",
+    "title": "198. 打家劫舍",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/house-robber/",
+    "tags": [
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】dp[i] = max(dp[i-1], dp[i-2] + nums[i])。偷当前这家就不能偷上一家。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "200",
+    "title": "200. 岛屿数量",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/number-of-islands/",
+    "tags": [
+      "DFS",
+      "BFS",
+      "并查集"
+    ],
+    "pattern_hint": "【DFS/BFS】遍历网格，遇到 '1' 则计数+1 并启动 DFS 将相连的 '1' 全部置为 '0'（沉岛思想）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "206",
+    "title": "206. 反转链表",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/reverse-linked-list/",
+    "tags": [
+      "链表",
+      "递归"
+    ],
+    "pattern_hint": "【双指针】Prev 置空，Curr 遍历。temp=curr.next; curr.next=prev; prev=curr; curr=temp。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "207",
+    "title": "207. 课程表",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/course-schedule/",
+    "tags": [
+      "DFS",
+      "BFS",
+      "图",
+      "拓扑排序"
+    ],
+    "pattern_hint": "【拓扑排序】统计入度。入度为 0 的入队，出队时将邻接点入度减 1。若最后输出节点数 == 总数则无环。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "208",
+    "title": "208. 实现 Trie (前缀树)",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/implement-trie-prefix-tree/",
+    "tags": [
+      "设计",
+      "树"
+    ],
+    "pattern_hint": "【多叉树】每个节点包含 26 个子节点指针和一个 isEnd 标记。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "215",
+    "title": "215. 数组中的第K个最大元素",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/kth-largest-element-in-an-array/",
+    "tags": [
+      "堆",
+      "分治"
+    ],
+    "pattern_hint": "【快速选择】快排思想。Partition 返回 pivot 下标，如果 pivot == k-1 则找到，否则递归左右半边。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "221",
+    "title": "221. 最大正方形",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/maximal-square/",
+    "tags": [
+      "数组",
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】dp[i][j] 表示以 (i,j) 为右下角的正方形最大边长。dp[i][j] = min(左, 上, 左上) + 1。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "226",
+    "title": "226. 翻转二叉树",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/invert-binary-tree/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【递归】交换左右子树，然后递归翻转左右子树。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "234",
+    "title": "234. 回文链表",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/palindrome-linked-list/",
+    "tags": [
+      "链表",
+      "双指针"
+    ],
+    "pattern_hint": "【快慢指针】找到中点，反转后半部分链表，然后前后两半对比。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "236",
+    "title": "236. 二叉树的最近公共祖先",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【递归】如果 root 是 p 或 q，返回 root。否则递归左右。若左右都返回非空，则 root 是 LCA；否则返回非空的那边。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "238",
+    "title": "238. 除自身以外数组的乘积",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/product-of-array-except-self/",
+    "tags": [
+      "数组"
+    ],
+    "pattern_hint": "【前缀后缀乘积】Left[i] 存 i 左边乘积，Right[i] 存 i 右边乘积。优化：先算左边，再反向算右边并累乘。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "239",
+    "title": "239. 滑动窗口最大值",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/sliding-window-maximum/",
+    "tags": [
+      "堆",
+      "滑动窗口",
+      "单调队列"
+    ],
+    "pattern_hint": "【单调队列】双端队列存储下标，保持队列内元素对应的值递减。窗口滑动时，队头过期的移出，比当前元素小的从队尾移出。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "240",
+    "title": "240. 搜索二维矩阵 II",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/search-a-2d-matrix-ii/",
+    "tags": [
+      "二分查找",
+      "分治"
+    ],
+    "pattern_hint": "【Z字形查找】从右上角开始。如果 > target 则向左移，如果 < target 则向下移。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "253",
+    "title": "253. 会议室 II",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/meeting-rooms-ii/",
+    "tags": [
+      "堆",
+      "贪心",
+      "排序"
+    ],
+    "pattern_hint": "【扫描线/堆】按开始时间排序。用小顶堆存结束时间。若最早结束的时间 <= 当前开始时间，复用会议室（弹出堆顶），否则新开（push）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "279",
+    "title": "279. 完全平方数",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/perfect-squares/",
+    "tags": [
+      "BFS",
+      "数学",
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划/BFS】dp[i] = min(dp[i - j*j]) + 1。类似于零钱兑换问题。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "283",
+    "title": "283. 移动零",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/move-zeroes/",
+    "tags": [
+      "数组",
+      "双指针"
+    ],
+    "pattern_hint": "【双指针】Left 指向第一个 0，Right 遍历非 0 数。遇到非 0 交换给 Left，Left++。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "287",
+    "title": "287. 寻找重复数",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/find-the-duplicate-number/",
+    "tags": [
+      "数组",
+      "双指针",
+      "二分查找"
+    ],
+    "pattern_hint": "【快慢指针】把数组当成链表（值是 next 指针）。问题转化为找环的入口（同 142 题）。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "297",
+    "title": "297. 二叉树的序列化与反序列化",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/",
+    "tags": [
+      "树",
+      "设计"
+    ],
+    "pattern_hint": "【DFS/BFS】前序遍历存字符串（空节点存 'None'）。反序列化时用迭代器/队列按顺序重建。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "300",
+    "title": "300. 最长递增子序列",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/longest-increasing-subsequence/",
+    "tags": [
+      "二分查找",
+      "动态规划"
+    ],
+    "pattern_hint": "【DP/贪心+二分】dp[i] 结尾的最长长度。优化：维护 tails 数组，tails[i] 表示长度为 i+1 的 LIS 结尾的最小值，二分更新 tails。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "301",
+    "title": "301. 删除无效的括号",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/remove-invalid-parentheses/",
+    "tags": [
+      "BFS",
+      "回溯"
+    ],
+    "pattern_hint": "【BFS】第一层删 1 个字符，第二层删 2 个... 第一次出现合法字符串的层级即为答案。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "309",
+    "title": "309. 买卖股票的最佳时机含冷冻期",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/",
+    "tags": [
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】状态机：持有、不持有且处于冷冻期、不持有且不处于冷冻期。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "312",
+    "title": "312. 戳气球",
+    "difficulty": "Hard",
+    "url": "https://leetcode.cn/problems/burst-balloons/",
+    "tags": [
+      "分治",
+      "动态规划"
+    ],
+    "pattern_hint": "【区间DP】dp[i][j] 表示戳破 (i, j) 之间所有气球的最大硬币。枚举最后一个被戳破的气球 k。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "322",
+    "title": "322. 零钱兑换",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/coin-change/",
+    "tags": [
+      "动态规划"
+    ],
+    "pattern_hint": "【动态规划】完全背包问题。dp[i] = min(dp[i-coin]) + 1。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "337",
+    "title": "337. 打家劫舍 III",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/house-robber-iii/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【树形DP】每个节点返回两个值：[偷当前节点的最大值, 不偷当前节点的最大值]。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "338",
+    "title": "338. 比特位计数",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/counting-bits/",
+    "tags": [
+      "位运算",
+      "动态规划"
+    ],
+    "pattern_hint": "【DP/位运算】dp[i] = dp[i >> 1] + (i & 1)。即 i 的 1 个数等于 i/2 的 1 个数加上最后一位是否为 1。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "347",
+    "title": "347. 前 K 个高频元素",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/top-k-frequent-elements/",
+    "tags": [
+      "堆",
+      "哈希表"
+    ],
+    "pattern_hint": "【小顶堆】Map 计数。维护大小为 k 的小顶堆。元素 > 堆顶则弹出堆顶插入新元素。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "394",
+    "title": "394. 字符串解码",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/decode-string/",
+    "tags": [
+      "栈",
+      "DFS"
+    ],
+    "pattern_hint": "【辅助栈】遇到数字入数栈，遇到 '[' 入字符栈。遇到 ']' 弹出数字和字符，构造新字符串再入栈。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "399",
+    "title": "399. 除法求值",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/evaluate-division/",
+    "tags": [
+      "DFS",
+      "BFS",
+      "并查集",
+      "图"
+    ],
+    "pattern_hint": "【带权并查集/图搜索】构建图 a->b 权值为 val，b->a 权值为 1/val。对 query 做 DFS/BFS 寻找路径乘积。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "406",
+    "title": "406. 根据身高重建队列",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/queue-reconstruction-by-height/",
+    "tags": [
+      "贪心",
+      "数组"
+    ],
+    "pattern_hint": "【贪心】按身高降序排序（身高相同按 k 升序）。然后遍历，将每个人插入到 index=k 的位置。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "416",
+    "title": "416. 分割等和子集",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/partition-equal-subset-sum/",
+    "tags": [
+      "动态规划"
+    ],
+    "pattern_hint": "【0-1背包】能否从数组中选出和为 sum/2 的子集。dp[j] 表示容量为 j 能否装满。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "437",
+    "title": "437. 路径总和 III",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/path-sum-iii/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【前缀和+DFS】Map 记录路径前缀和出现的次数。currSum - target 是否存在于 Map 中。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "438",
+    "title": "438. 找到字符串中所有字母异位词",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/find-all-anagrams-in-a-string/",
+    "tags": [
+      "哈希表",
+      "滑动窗口"
+    ],
+    "pattern_hint": "【滑动窗口】维护窗口内字符计数的数组。与目标字符串的计数数组比较。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "448",
+    "title": "448. 找到所有数组中消失的数字",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/",
+    "tags": [
+      "数组"
+    ],
+    "pattern_hint": "【原地哈希】遍历 nums，将 nums[i] 对应的下标位置的数置为负数。最后仍为正数的位置即为缺失的数。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "461",
+    "title": "461. 汉明距离",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/hamming-distance/",
+    "tags": [
+      "位运算"
+    ],
+    "pattern_hint": "【异或】x ^ y 的结果中 1 的个数。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "494",
+    "title": "494. 目标和",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/target-sum/",
+    "tags": [
+      "DFS",
+      "动态规划"
+    ],
+    "pattern_hint": "【背包问题】转换为：找出正数集合 P 和负数集合 N，使得 sum(P) - sum(N) = target。即 sum(P) = (target + sum)/2。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "538",
+    "title": "538. 把二叉搜索树转换为累加树",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/convert-bst-to-greater-tree/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【反向中序遍历】右 -> 根 -> 左。维护一个 sum 变量累加当前访问过的值，并赋值给当前节点。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "543",
+    "title": "543. 二叉树的直径",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/diameter-of-binary-tree/",
+    "tags": [
+      "树",
+      "DFS"
+    ],
+    "pattern_hint": "【DFS】每个节点计算：左子树深度 + 右子树深度，更新全局最大值。函数返回 max(左, 右) + 1。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "560",
+    "title": "560. 和为 K 的子数组",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/subarray-sum-equals-k/",
+    "tags": [
+      "哈希表",
+      "前缀和"
+    ],
+    "pattern_hint": "【前缀和+哈希】Map 存前缀和出现的次数。preSum - k 是否存在。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "581",
+    "title": "581. 最短无序连续子数组",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/shortest-unsorted-continuous-subarray/",
+    "tags": [
+      "数组",
+      "栈"
+    ],
+    "pattern_hint": "【排序/双指针】复制一份排序对比，找最左和最右不同的位置。或维护 min/max 遍历寻找边界。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "617",
+    "title": "617. 合并二叉树",
+    "difficulty": "Easy",
+    "url": "https://leetcode.cn/problems/merge-two-binary-trees/",
+    "tags": [
+      "树",
+      "DFS",
+      "BFS"
+    ],
+    "pattern_hint": "【递归】新节点值 = r1.val + r2.val。递归合并左子树和右子树。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "621",
+    "title": "621. 任务调度器",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/task-scheduler/",
+    "tags": [
+      "贪心",
+      "数组",
+      "堆"
+    ],
+    "pattern_hint": "【桶思想/数学】找出频率最高的任务 max_exec，总时间至少为 (max_exec - 1) * (n + 1) + max_count。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "647",
+    "title": "647. 回文子串",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/palindromic-substrings/",
+    "tags": [
+      "字符串",
+      "动态规划"
+    ],
+    "pattern_hint": "【中心扩散】遍历字符串，以每个点（和间隙）为中心向外扩散，统计回文个数。",
+    "status": "unsolved",
+    "my_code": "",
+    "notes": ""
+  },
+  {
+    "id": "739",
+    "title": "739. 每日温度",
+    "difficulty": "Medium",
+    "url": "https://leetcode.cn/problems/daily-temperatures/",
+    "tags": [
+      "栈",
+      "数组"
+    ],
+    "pattern_hint": "【单调栈】栈存下标，保持栈内元素对应温度递减。若当前温度 > 栈顶，说明找到了更高温度，弹出栈顶并计算距离。",
     "status": "unsolved",
     "my_code": "",
     "notes": ""
