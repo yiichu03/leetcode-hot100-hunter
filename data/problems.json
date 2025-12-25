@@ -140,9 +140,9 @@
       "二分查找"
     ],
     "pattern_hint": "【二分查找变体】将数组一分为二，其中一半一定是有序的。判断 target 是否在有序的那一半里，从而决定舍弃哪一半。",
-    "status": "unsolved",
-    "my_code": "",
-    "notes": ""
+    "status": "solved",
+    "my_code": "111",
+    "notes": "222"
   },
   {
     "id": "42",
