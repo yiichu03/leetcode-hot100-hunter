@@ -807,9 +807,9 @@
       "动态规划"
     ],
     "pattern_hint": "【动态规划】dp[i] = max(dp[i-1], dp[i-2] + nums[i])。偷当前这家就不能偷上一家。",
-    "status": "unsolved",
-    "my_code": "",
-    "notes": ""
+    "status": "solved",
+    "my_code": "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        if len(nums) == 0:\n            return 0\n        N = len(nums)\n        dp = [0] * (N+1)\n        dp[0] = 0\n        dp[1] = nums[0]\n        for k in range(2, N+1):\n            dp[k] = max(dp[k-1], nums[k-1] + dp[k-2])\n        return dp[N]",
+    "notes": "动态规划，先确定子问题f(k)是抢劫前k家最多的钱，然后根据子问题的递推关系和计算顺序得到max( , )，从而解题。\n思路是自底向上的使用dp数组的循环做法。"
   },
   {
     "id": "200",
